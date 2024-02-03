@@ -2,7 +2,7 @@ module github.com/gorustyt/learn-opengl-go
 
 go 1.21.0
 
-require github.com/gorustyt/fyne/v2 v2.0.0-20240203014708-ba37d7b52284
+require github.com/gorustyt/fyne/v2 v2.0.0-20240203142757-0aa93059c221
 
 require (
 	fyne.io/systray v1.10.1-0.20231115130155-104f5ef7839e // indirect
