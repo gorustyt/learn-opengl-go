@@ -6,6 +6,6 @@ const (
 )
 
 const (
-	ChapterHelloTriangleSub1 = "hello_triangle_indexed"
-	ChapterHelloTriangleSub2 = "hello_triangle_exercise"
+	ChapterHelloTriangleSub1 = "hello_triangle"
+	ChapterHelloTriangleSub2 = "hello_triangle_index"
 )

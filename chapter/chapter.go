@@ -19,6 +19,7 @@ func (c *Chapter) ChangeChapter(uid string) {
 		case desc.ChapterHelloTriangleSub1:
 			v = _1hello_triangle.NewTriangle()
 		case desc.ChapterHelloTriangleSub2:
+			v = _1hello_triangle.NewTriangleIndex()
 		}
 		if v != nil {
 			c.Chapters[uid] = v
