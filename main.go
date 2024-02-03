@@ -19,9 +19,7 @@ func main() {
 		content.Objects = []fyne.CanvasObject{chap.ChapterContent}
 		content.Refresh()
 	}
-	m := container.NewBorder(
-		nil, nil, nil, nil, content)
-	split := container.NewHSplit(m, chap.ParamsContent)
+	split := container.NewHSplit(chap.ParamsContent, content)
 	split.Offset = 0.2
 	split1 := container.NewHSplit(ui.CreateChapterTree(setView), split)
 	split1.Offset = 0.2

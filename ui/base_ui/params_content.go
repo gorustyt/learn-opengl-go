@@ -17,7 +17,7 @@ func NewParamsContent() *ParamsContent {
 }
 
 func (p *ParamsContent) MinSize() fyne.Size {
-	return fyne.Size{Width: 700, Height: 600}
+	return fyne.Size{Width: 100, Height: 800}
 }
 
 func (p *ParamsContent) Move(position fyne.Position) {

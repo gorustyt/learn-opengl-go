@@ -13,7 +13,7 @@ type ChapterContent struct {
 }
 
 func (c *ChapterContent) MinSize() fyne.Size {
-	return fyne.Size{Width: 100, Height: 800}
+	return fyne.Size{Width: 700, Height: 600}
 }
 
 func (c *ChapterContent) Move(position fyne.Position) {
