@@ -9,10 +9,10 @@ import (
 )
 
 func main() {
-	width, height := 1200, 900
+	size := fyne.NewSize(1200, 900)
 	a := app.NewWithID("learn-go-opengl")
 	w := a.NewWindow("learn go opengl")
-	chap := chapter.NewChapter(w)
+	chap := chapter.NewChapter(w, size)
 	content := container.NewStack()
 	setView := func(uid string) {
 		chap.ChangeChapter(uid)
@@ -24,6 +24,6 @@ func main() {
 	split1 := container.NewHSplit(ui.CreateChapterTree(setView), split)
 	split1.Offset = 0.2
 	w.SetContent(split1)
-	w.Resize(fyne.NewSize(float32(width), float32(height)))
+	w.Resize(size)
 	w.ShowAndRun()
 }

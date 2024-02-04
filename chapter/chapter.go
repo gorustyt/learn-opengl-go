@@ -36,14 +36,14 @@ func (c *Chapter) ChangeChapter(uid string) {
 
 }
 
-func NewChapter(w fyne.Window) *Chapter {
+func NewChapter(w fyne.Window, winSize fyne.Size) *Chapter {
 	c := &Chapter{
 		w:              w,
 		Chapters:       map[string]base_ui.IChapter{},
 		ParamsContent:  base_ui.NewParamsContent(),
 		ChapterContent: base_ui.NewChapterContent(),
 	}
-	c.ChapterContent.WinSize = w.Canvas().Size()
+	c.ChapterContent.WinSize = winSize
 	c.RegisterKeyEvent()
 	return c
 }
@@ -79,7 +79,7 @@ func (c *Chapter) RegisterKeyEvent() {
 }
 
 var chapterCns = map[string]func() base_ui.IChapter{
-	desc.ChapterHelloTriangleSub1:  _1hello_triangle.NewTriangle,
-	desc.ChapterHelloTriangleSub2:  _1hello_triangle.NewTriangleIndex,
-	desc.ChapterHelloTriangleSub23: _1hello_triangle.NewHelloCoordinates,
+	desc.ChapterHelloTriangleSub1: _1hello_triangle.NewTriangle,
+	desc.ChapterHelloTriangleSub2: _1hello_triangle.NewTriangleIndex,
+	desc.ChapterHelloTriangleSub3: _1hello_triangle.NewHelloCoordinates,
 }
