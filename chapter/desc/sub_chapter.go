@@ -41,34 +41,34 @@ const (
 )
 
 const (
-	ChapterLighting1.colors/
-2.1.basic_lighting_diffuse/
-2.2.basic_lighting_specular/
-2.3.basic_lighting_exercise1/
-2.4.basic_lighting_exercise2/
-2.5.basic_lighting_exercise3/
-3.1.materials/
-3.2.materials_exercise1/
-4.1.lighting_maps_diffuse_map/
-4.2.lighting_maps_specular_map/
-4.3.lighting_maps_exercise2/
-4.4.lighting_maps_exercise4/
-5.1.light_casters_directional/
-5.2.light_casters_point/
-5.3.light_casters_spot/
-5.4.light_casters_spot_soft/
-6.multiple_lights/
-6.multiple_lights_exercise1/
+	ChapterLighting1="1.colors/
+	ChapterLighting1="2.1.basic_lighting_diffuse/
+	ChapterLighting1="2.2.basic_lighting_specular/
+	ChapterLighting1="2.3.basic_lighting_exercise1/
+	ChapterLighting1="2.4.basic_lighting_exercise2/
+	ChapterLighting1="2.5.basic_lighting_exercise3/
+	ChapterLighting1="3.1.materials/
+	ChapterLighting1="3.2.materials_exercise1/
+	ChapterLighting1="4.1.lighting_maps_diffuse_map/
+	ChapterLighting1="4.2.lighting_maps_specular_map/
+	ChapterLighting1="4.3.lighting_maps_exercise2/
+	ChapterLighting1="4.4.lighting_maps_exercise4/
+	ChapterLighting1="5.1.light_casters_directional/
+ChapterLighting1="5.2.light_casters_point/
+ChapterLighting1="5.3.light_casters_spot/
+ChapterLighting1="5.4.light_casters_spot_soft/
+ChapterLighting1="6.multiple_lights/
+ChapterLighting1="6.multiple_lights_exercise1/
 )
 
 const (
-1.model_loading/
+	ChapterModelLoading1="1.model_loading/"
 )
 const (
-1.1.depth_testing/
-1.2.depth_testing_view/
-10.1.instancing_quads/
-10.2.asteroids/
+	ChapterAdvancedOpengl1="1.1.depth_testing/
+	ChapterAdvancedOpengl1="1.2.depth_testing_view/
+	ChapterAdvancedOpengl1="10.1.instancing_quads/
+	ChapterAdvancedOpengl1="10.2.asteroids/
 10.3.asteroids_instanced/
 11.1.anti_aliasing_msaa/
 11.2.anti_aliasing_offscreen/

@@ -12,7 +12,7 @@ void main()
    gl_Position = vec4(position.x, position.y, position.z, 1.0);
 }`
 
-var fragmentShader1 = `#version 330 core
+var fragShader1 = `#version 330 core
 out vec4 FragColor;
 void main()
 {
@@ -44,7 +44,7 @@ func NewTriangleIndex() base_ui.IChapter {
 }
 
 func (t *TriangleIndex) InitChapterContent(c *base_ui.ChapterContent) {
-	c.SetShaderConfig(vertexShader1, fragmentShader1)
+	c.SetShaderConfig(vertexShader, fragShader)
 	c.AppendObj(t.vert)
 }
 func (t *TriangleIndex) InitParamsContent(c *base_ui.ParamsContent) {
