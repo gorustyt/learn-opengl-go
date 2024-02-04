@@ -86,7 +86,7 @@ func NewHelloCoordinates() base_ui.IChapter {
 		vert:       canvas3d.NewVertexFloat32Array(),
 	}
 	r.vert.Arr = vertices6
-	r.vert.PositionSize = []int{3, 2}
+	r.vert.PositionSize = []int{3, 0}
 	r.vert.TexCoordSize = []int{2, 3}
 	return r
 }
@@ -146,9 +146,10 @@ func (t *HelloCoordinates) InitChapterContent(c *base_ui.ChapterContent) {
 	t.coordinate.TranslateVec3(cubePositions[0])
 	t.tex.AppendPath(pathAwesomeface)
 	t.tex.AppendPath(pathContainer2)
+	c.AppendObj(t.vert)
 	c.AppendObj(t.coordinate)
 	c.AppendObj(t.tex)
-	c.AppendObj(t.vert)
+
 }
 func (t *HelloCoordinates) InitParamsContent(c *base_ui.ParamsContent) {
 
