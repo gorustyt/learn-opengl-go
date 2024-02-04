@@ -15,11 +15,9 @@ type Chapter struct {
 func (c *Chapter) ChangeChapter(uid string) {
 	v, ok := c.Chapters[uid]
 	if !ok {
-		switch uid {
-		case desc.ChapterHelloTriangleSub1:
-			v = _1hello_triangle.NewTriangle()
-		case desc.ChapterHelloTriangleSub2:
-			v = _1hello_triangle.NewTriangleIndex()
+		cns := chapterCns[uid]
+		if cns != nil {
+			v = cns()
 		}
 		if v != nil {
 			c.Chapters[uid] = v
@@ -41,4 +39,9 @@ func NewChapter() *Chapter {
 		ParamsContent:  base_ui.NewParamsContent(),
 		ChapterContent: base_ui.NewChapterContent(),
 	}
+}
+
+var chapterCns = map[string]func() base_ui.IChapter{
+	desc.ChapterHelloTriangleSub1: _1hello_triangle.NewTriangle,
+	desc.ChapterHelloTriangleSub2: _1hello_triangle.NewTriangleIndex,
 }

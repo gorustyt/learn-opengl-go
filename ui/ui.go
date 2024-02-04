@@ -9,23 +9,15 @@ import (
 
 const preferenceCurrentTutorial = "currentTutorial"
 
-var (
-	treeData = map[string][]string{
-		"":                        {desc.ChapterHelloTriangle, desc.ChapterShader},
-		desc.ChapterHelloTriangle: {desc.ChapterHelloTriangleSub1, desc.ChapterHelloTriangleSub2},
-		desc.ChapterShader:        {},
-	}
-)
-
 func CreateChapterTree(view func(uid string)) fyne.CanvasObject {
 	a := fyne.CurrentApp()
 
 	tree := &widget.Tree{
 		ChildUIDs: func(uid string) []string {
-			return treeData[uid]
+			return desc.DataList[uid]
 		},
 		IsBranch: func(uid string) bool {
-			children, ok := treeData[uid]
+			children, ok := desc.DataList[uid]
 
 			return ok && len(children) > 0
 		},
