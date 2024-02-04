@@ -8,10 +8,11 @@ import (
 type ParamsContent struct {
 	widget.BaseWidget
 	Objs []fyne.CanvasObject
+	*KeyHandel
 }
 
 func NewParamsContent() *ParamsContent {
-	b := &ParamsContent{}
+	b := &ParamsContent{KeyHandel: NewKeyHandel()}
 	b.ExtendBaseWidget(b)
 	return b
 }

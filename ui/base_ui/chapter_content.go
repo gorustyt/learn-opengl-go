@@ -10,6 +10,7 @@ import (
 type ChapterContent struct {
 	canvas3d.ICanvas3d
 	widget.BaseWidget
+	*KeyHandel
 }
 
 func (c *ChapterContent) MinSize() fyne.Size {
@@ -49,7 +50,7 @@ func (c *ChapterContent) Refresh() {
 }
 
 func NewChapterContent() *ChapterContent {
-	c := &ChapterContent{ICanvas3d: canvas3d.NewCanvas3d()}
+	c := &ChapterContent{ICanvas3d: canvas3d.NewCanvas3d(), KeyHandel: NewKeyHandel()}
 	c.ExtendBaseWidget(c)
 	return c
 }

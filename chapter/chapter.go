@@ -1,12 +1,15 @@
 package chapter
 
 import (
+	"github.com/gorustyt/fyne/v2"
+	"github.com/gorustyt/fyne/v2/driver/desktop"
 	"github.com/gorustyt/learn-opengl-go/chapter/_1hello_triangle"
 	"github.com/gorustyt/learn-opengl-go/chapter/desc"
 	"github.com/gorustyt/learn-opengl-go/ui/base_ui"
 )
 
 type Chapter struct {
+	w              fyne.Window
 	ParamsContent  *base_ui.ParamsContent
 	ChapterContent *base_ui.ChapterContent
 	Chapters       map[string]base_ui.IChapter
@@ -33,11 +36,44 @@ func (c *Chapter) ChangeChapter(uid string) {
 
 }
 
-func NewChapter() *Chapter {
-	return &Chapter{
+func NewChapter(w fyne.Window) *Chapter {
+	c := &Chapter{
+		w:              w,
 		Chapters:       map[string]base_ui.IChapter{},
 		ParamsContent:  base_ui.NewParamsContent(),
 		ChapterContent: base_ui.NewChapterContent(),
+	}
+	c.RegisterKeyEvent()
+	return c
+}
+
+func (c *Chapter) RegisterKeyEvent() {
+	c.w.Canvas().SetOnTypedKey(func(event *fyne.KeyEvent) {
+		if c.ParamsContent.OnTyped != nil {
+			c.ParamsContent.OnTyped(event)
+		}
+		if c.ChapterContent.OnTyped != nil {
+			c.ChapterContent.OnTyped(event)
+		}
+
+	})
+	if deskCanvas, ok := c.w.Canvas().(desktop.Canvas); ok {
+		deskCanvas.SetOnKeyDown(func(event *fyne.KeyEvent) {
+			if c.ParamsContent.OnKeyDown != nil {
+				c.ParamsContent.OnKeyDown(event)
+			}
+			if c.ChapterContent.OnKeyDown != nil {
+				c.ChapterContent.OnKeyDown(event)
+			}
+		})
+		deskCanvas.SetOnKeyUp(func(event *fyne.KeyEvent) {
+			if c.ParamsContent.OnKeyUp != nil {
+				c.ParamsContent.OnKeyUp(event)
+			}
+			if c.ChapterContent.OnKeyUp != nil {
+				c.ChapterContent.OnKeyUp(event)
+			}
+		})
 	}
 }
 

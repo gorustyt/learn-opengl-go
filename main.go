@@ -12,7 +12,7 @@ func main() {
 	width, height := 1200, 900
 	a := app.NewWithID("learn-go-opengl")
 	w := a.NewWindow("learn go opengl")
-	chap := chapter.NewChapter()
+	chap := chapter.NewChapter(w)
 	content := container.NewStack()
 	setView := func(uid string) {
 		chap.ChangeChapter(uid)
