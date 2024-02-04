@@ -11,6 +11,7 @@ type ChapterContent struct {
 	canvas3d.ICanvas3d
 	widget.BaseWidget
 	*KeyHandel
+	WinSize fyne.Size
 }
 
 func (c *ChapterContent) MinSize() fyne.Size {
