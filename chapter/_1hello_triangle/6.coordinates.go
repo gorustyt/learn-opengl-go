@@ -66,7 +66,7 @@ var (
 
 const (
 	pathAwesomeface  = "assets/textures/awesomeface.png"
-	pathContainer2   = "assets/textures/container2.png"
+	pathContainer2   = "assets/textures/container.jpg"
 	pathVertexShader = "assets/getting_started/6.coordinates/coordinate.frag"
 	pathFragShader   = "assets/getting_started/6.coordinates/coordinate.vs"
 )
@@ -123,6 +123,7 @@ uniform mat4 projection;
 void main()
 {
     gl_Position = projection * view * model * vec4(position, 1.0f);
+	//gl_Position =vec4(position, 1.0f);
     TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
 }`
 	fragShader3 = `#version 330 core
@@ -144,6 +145,7 @@ func (t *HelloCoordinates) InitChapterContent(c *base_ui.ChapterContent) {
 	c.SetShaderConfig(vertexShader3, fragShader3)
 	t.coordinate.UpdateFrameSize(c.WinSize)
 	t.coordinate.TranslateVec3(cubePositions[0])
+	t.coordinate.Rotate(20*2, mgl32.Vec3{1.0, 0.3, 0.5})
 	t.tex.AppendPath(pathAwesomeface)
 	t.tex.AppendPath(pathContainer2)
 	c.AppendObj(t.vert)
