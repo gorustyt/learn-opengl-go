@@ -2,7 +2,11 @@ package _1hello_triangle
 
 import (
 	"github.com/go-gl/mathgl/mgl32"
+	"github.com/gorustyt/fyne/v2"
 	"github.com/gorustyt/fyne/v2/canvas3d"
+	"github.com/gorustyt/fyne/v2/container"
+	"github.com/gorustyt/fyne/v2/data/binding"
+	"github.com/gorustyt/fyne/v2/widget"
 	"github.com/gorustyt/learn-opengl-go/ui/base_ui"
 )
 
@@ -77,6 +81,8 @@ type HelloCoordinates struct {
 	coordinate   *canvas3d.Coordinate
 	vertexShader string
 	fragShader   string
+	menu         fyne.CanvasObject
+	lastY        float32
 }
 
 func NewHelloCoordinates() base_ui.IChapter {
@@ -88,6 +94,7 @@ func NewHelloCoordinates() base_ui.IChapter {
 	r.vert.Arr = vertices6
 	r.vert.PositionSize = []int{3, 0}
 	r.vert.TexCoordSize = []int{2, 3}
+	r.initMenu()
 	return r
 }
 
@@ -130,13 +137,13 @@ void main()
 in vec2 TexCoord;
 
 out vec4 color;
-
+uniform float mixParams;
 uniform sampler2D texture1;
 uniform sampler2D texture2;
 
 void main()
 {
-    color = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
+    color = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), mixParams);
 }`
 )
 
@@ -146,13 +153,37 @@ func (t *HelloCoordinates) InitChapterContent(c *base_ui.ChapterContent) {
 	t.coordinate.UpdateFrameSize(c.WinSize)
 	t.coordinate.TranslateVec3(cubePositions[0])
 	t.coordinate.Rotate(20*2, mgl32.Vec3{1.0, 0.3, 0.5})
-	t.tex.AppendPath(pathAwesomeface)
 	t.tex.AppendPath(pathContainer2)
+	t.tex.AppendPath(pathAwesomeface)
 	c.AppendObj(t.vert)
 	c.AppendObj(t.coordinate)
 	c.AppendObj(t.tex)
 
 }
-func (t *HelloCoordinates) InitParamsContent(c *base_ui.ParamsContent) {
 
+func (t *HelloCoordinates) initMenu() {
+	f := 2.
+	data := binding.BindFloat(&f)
+	s := widget.NewSliderWithData(1, 10, data)
+	s.Step = 1
+	s.OnChanged = func(f float64) {
+		//offsetY := float32(f) - t.lastY
+		//t.coordinate.TranslateXYZ(0, offsetY, 0)
+		//t.lastY = float32(f)
+	}
+	s1 := widget.NewSlider(0, 1)
+	s1.Step = 0.1
+	s1.OnChanged = func(f float64) {
+		t.tex.MixParams = float32(f)
+	}
+	t.menu = container.NewVBox(
+		widget.NewLabel("height"),
+		s,
+		widget.NewLabel("mix"),
+		s1,
+	)
+}
+
+func (t *HelloCoordinates) InitParamsContent(c *base_ui.ParamsContent) {
+	c.Add(t.menu)
 }

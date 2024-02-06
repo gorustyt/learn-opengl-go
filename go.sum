@@ -168,10 +168,8 @@ github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1/go.mod h1:wJfORR
 github.com/gopherjs/gopherjs v0.0.0-20211219123610-ec9572f70e60/go.mod h1:cz9oNYuRUWGdHmLF2IodMLkAhcPtXeULvcBNagUrxTI=
 github.com/gopherjs/gopherjs v1.17.2 h1:fQnZVsXk8uxXIStYb0N4bGk7jeyTalG/wsZjQ25dO0g=
 github.com/gopherjs/gopherjs v1.17.2/go.mod h1:pRRIvn/QzFLrKfvEz3qUuEhtE/zLCWfreZ6J5gM2i+k=
-github.com/gorustyt/fyne/v2 v2.0.0-20240203142757-0aa93059c221 h1:eZEB2h187QQNZx5kxMwKbFDZ9HFg8ndm+DtDdTsUKfs=
-github.com/gorustyt/fyne/v2 v2.0.0-20240203142757-0aa93059c221/go.mod h1:flhTQ80LkKxOTHUObcEsPOWR6rRzL6ik/LHa5iw4xcw=
-github.com/gorustyt/fyne/v2 v2.0.0-20240204130235-3e14e244d9d3 h1:iXAunsMwEf/V3wYo3awOCn/QBgOwFsVsBePQPVb1PB0=
-github.com/gorustyt/fyne/v2 v2.0.0-20240204130235-3e14e244d9d3/go.mod h1:flhTQ80LkKxOTHUObcEsPOWR6rRzL6ik/LHa5iw4xcw=
+github.com/gorustyt/fyne/v2 v2.0.0-20240206151757-063d2579b4c2 h1:XNL82tjPqKY8lWLeRUvWgDb803foOIVllbESy1cg42E=
+github.com/gorustyt/fyne/v2 v2.0.0-20240206151757-063d2579b4c2/go.mod h1:flhTQ80LkKxOTHUObcEsPOWR6rRzL6ik/LHa5iw4xcw=
 github.com/goxjs/gl v0.0.0-20210104184919-e3fafc6f8f2a/go.mod h1:dy/f2gjY09hwVfIyATps4G2ai7/hLwLkc5TrPqONuXY=
 github.com/goxjs/glfw v0.0.0-20191126052801-d2efb5f20838/go.mod h1:oS8P8gVOT4ywTcjV6wZlOU4GuVFQ8F5328KY3MJ79CY=
 github.com/grpc-ecosystem/grpc-gateway v1.16.0/go.mod h1:BDjrQk3hbvj6Nolgz8mAMFbcEtjT1g+wF4CSlocrBnw=

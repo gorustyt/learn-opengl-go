@@ -28,6 +28,7 @@ func (c *Chapter) ChangeChapter(uid string) {
 	}
 	if v != nil {
 		c.ChapterContent.Reset()
+		c.ParamsContent.RemoveAll()
 		v.InitChapterContent(c.ChapterContent)
 		v.InitParamsContent(c.ParamsContent)
 		c.ChapterContent.Refresh()
