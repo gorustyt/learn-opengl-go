@@ -4,7 +4,8 @@ go 1.21.0
 
 require (
 	github.com/go-gl/mathgl v1.1.0
-	github.com/gorustyt/fyne/v2 v2.0.0-20240206151757-063d2579b4c2
+	github.com/gorustyt/fyne/v2 v2.0.0-20240207144253-98f011fb058c
+
 )
 
 require (

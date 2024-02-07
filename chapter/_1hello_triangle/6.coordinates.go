@@ -95,6 +95,11 @@ func NewHelloCoordinates() base_ui.IChapter {
 	r.vert.PositionSize = []int{3, 0}
 	r.vert.TexCoordSize = []int{2, 3}
 	r.initMenu()
+	r.initShader()
+	r.coordinate.TranslateVec3(cubePositions[0])
+	r.coordinate.Rotate(20*2, mgl32.Vec3{1.0, 0.3, 0.5})
+	r.tex.AppendPath(pathContainer2)
+	r.tex.AppendPath(pathAwesomeface)
 	return r
 }
 
@@ -148,17 +153,11 @@ void main()
 )
 
 func (t *HelloCoordinates) InitChapterContent(c *base_ui.ChapterContent) {
-	t.initShader()
 	c.SetShaderConfig(vertexShader3, fragShader3)
 	t.coordinate.UpdateFrameSize(c.WinSize)
-	t.coordinate.TranslateVec3(cubePositions[0])
-	t.coordinate.Rotate(20*2, mgl32.Vec3{1.0, 0.3, 0.5})
-	t.tex.AppendPath(pathContainer2)
-	t.tex.AppendPath(pathAwesomeface)
 	c.AppendObj(t.vert)
 	c.AppendObj(t.coordinate)
 	c.AppendObj(t.tex)
-
 }
 
 func (t *HelloCoordinates) initMenu() {
