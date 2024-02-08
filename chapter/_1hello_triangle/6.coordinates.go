@@ -153,11 +153,11 @@ void main()
 )
 
 func (t *HelloCoordinates) InitChapterContent(c *base_ui.ChapterContent) {
-	c.SetShaderConfig(vertexShader3, fragShader3)
+	c.Painter(0).SetShaderConfig(vertexShader3, fragShader3)
 	t.coordinate.UpdateFrameSize(c.WinSize)
-	c.AppendObj(t.vert)
-	c.AppendObj(t.coordinate)
-	c.AppendObj(t.tex)
+	c.Painter(0).AppendObj(t.vert)
+	c.Painter(0).AppendObj(t.coordinate)
+	c.Painter(0).AppendObj(t.tex)
 }
 
 func (t *HelloCoordinates) initMenu() {

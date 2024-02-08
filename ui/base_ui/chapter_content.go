@@ -8,12 +8,20 @@ import (
 )
 
 type ChapterContent struct {
-	canvas3d.ICanvas3d
+	cs []canvas3d.ICanvas3d
 	widget.BaseWidget
 	*KeyHandel
 	WinSize fyne.Size
 }
 
+func (c *ChapterContent) Reset() {
+	for _, v := range c.cs {
+		v.Reset()
+	}
+}
+func (c *ChapterContent) Painter(index int) canvas3d.ICanvas3d {
+	return c.cs[index]
+}
 func (c *ChapterContent) MinSize() fyne.Size {
 	return fyne.Size{Width: 700, Height: 600}
 }
@@ -47,11 +55,18 @@ func (c *ChapterContent) Show() {
 }
 
 func (c *ChapterContent) Refresh() {
-	canvas.Refresh(c.ICanvas3d.GetRenderObj())
+	for _, v := range c.cs {
+		canvas.Refresh(v.GetRenderObj())
+	}
+
 }
 
 func NewChapterContent() *ChapterContent {
-	c := &ChapterContent{ICanvas3d: canvas3d.NewCanvas3d(), KeyHandel: NewKeyHandel()}
+	c := &ChapterContent{KeyHandel: NewKeyHandel(), cs: []canvas3d.ICanvas3d{
+		canvas3d.NewCanvas3d(),
+		canvas3d.NewCanvas3d(),
+		canvas3d.NewCanvas3d(),
+	}}
 	c.ExtendBaseWidget(c)
 	return c
 }
@@ -76,11 +91,14 @@ func (c ChapterContentRender) MinSize() fyne.Size {
 }
 
 func (c ChapterContentRender) Objects() (res []fyne.CanvasObject) {
-	return append(res, c.c.ICanvas3d.GetRenderObj())
+	for _, v := range c.c.cs {
+		res = append(res, v.GetRenderObj())
+	}
+	return res
 }
 
 func (c ChapterContentRender) Refresh() {
-	canvas.Refresh(c.c.ICanvas3d.GetRenderObj())
+	c.c.Refresh()
 }
 
 func NewChapterContentRender(c *ChapterContent) fyne.WidgetRenderer {

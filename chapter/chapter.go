@@ -4,6 +4,7 @@ import (
 	"github.com/gorustyt/fyne/v2"
 	"github.com/gorustyt/fyne/v2/driver/desktop"
 	"github.com/gorustyt/learn-opengl-go/chapter/_1hello_triangle"
+	"github.com/gorustyt/learn-opengl-go/chapter/_2lighting"
 	"github.com/gorustyt/learn-opengl-go/chapter/desc"
 	"github.com/gorustyt/learn-opengl-go/ui/base_ui"
 )
@@ -83,4 +84,5 @@ var chapterCns = map[string]func() base_ui.IChapter{
 	desc.ChapterHelloTriangleSub1: _1hello_triangle.NewTriangle,
 	desc.ChapterHelloTriangleSub2: _1hello_triangle.NewTriangleIndex,
 	desc.ChapterHelloTriangleSub3: _1hello_triangle.NewHelloCoordinates,
+	desc.ChapterLighting1:         _2lighting.NewLighting,
 }

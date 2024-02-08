@@ -30,8 +30,8 @@ func NewTriangleIndex() base_ui.IChapter {
 }
 
 func (t *TriangleIndex) InitChapterContent(c *base_ui.ChapterContent) {
-	c.SetShaderConfig(vertexShader, fragShader)
-	c.AppendObj(t.vert)
+	c.Painter(0).SetShaderConfig(vertexShader, fragShader)
+	c.Painter(0).AppendObj(t.vert)
 }
 func (t *TriangleIndex) InitParamsContent(c *base_ui.ParamsContent) {
 
