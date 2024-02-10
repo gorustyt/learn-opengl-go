@@ -131,4 +131,5 @@ var chapterCns = map[string]func() base_ui.IChapter{
 	desc.ChapterLighting1:         _2lighting.NewLighting,
 	desc.ChapterLighting2:         _2lighting.NewLight1,
 	desc.ChapterLighting3:         _2lighting.NewLight2,
+	desc.ChapterLighting7:         _2lighting.NewMaterial,
 }
