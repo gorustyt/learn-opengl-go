@@ -82,7 +82,6 @@ type HelloCoordinates struct {
 	vertexShader string
 	fragShader   string
 	menu         fyne.CanvasObject
-	lastY        float32
 }
 
 func NewHelloCoordinates() base_ui.IChapter {
@@ -153,22 +152,19 @@ void main()
 )
 
 func (t *HelloCoordinates) InitChapterContent(c *base_ui.ChapterContent) {
-	c.Painter(0).SetShaderConfig(vertexShader3, fragShader3)
-	t.coordinate.UpdateFrameSize(c.WinSize)
-	c.Painter(0).AppendObj(t.vert)
-	c.Painter(0).AppendObj(t.coordinate)
-	c.Painter(0).AppendObj(t.tex)
+	c.Canvas3d().SetShaderConfig(0, vertexShader3, fragShader3)
+	c.Canvas3d().AppendObj(0, t.vert)
+	c.Canvas3d().AppendObj(0, t.coordinate)
+	c.Canvas3d().AppendObj(0, t.tex)
 }
 
 func (t *HelloCoordinates) initMenu() {
-	f := 2.
+	f := .2
 	data := binding.BindFloat(&f)
-	s := widget.NewSliderWithData(1, 10, data)
-	s.Step = 1
+	s := widget.NewSliderWithData(0, 1, data)
+	s.Step = 0.01
 	s.OnChanged = func(f float64) {
-		//offsetY := float32(f) - t.lastY
-		//t.coordinate.TranslateXYZ(0, offsetY, 0)
-		//t.lastY = float32(f)
+		t.coordinate.TranslateXYZ(0, float32(f), 0)
 	}
 	s1 := widget.NewSlider(0, 1)
 	s1.Step = 0.1

@@ -7,6 +7,9 @@ import (
 	"github.com/gorustyt/learn-opengl-go/chapter/_2lighting"
 	"github.com/gorustyt/learn-opengl-go/chapter/desc"
 	"github.com/gorustyt/learn-opengl-go/ui/base_ui"
+	"log/slog"
+	"sync"
+	"time"
 )
 
 type Chapter struct {
@@ -14,6 +17,53 @@ type Chapter struct {
 	ParamsContent  *base_ui.ParamsContent
 	ChapterContent *base_ui.ChapterContent
 	Chapters       map[string]base_ui.IChapter
+	ticker         *time.Ticker
+	curChapter     base_ui.IChapter
+
+	lock sync.Mutex
+}
+
+func (c *Chapter) TimerRefresh() {
+	if c.curChapter == nil {
+		return
+	}
+	if v, ok := c.curChapter.(base_ui.IChapterRefresh); ok {
+		if c.ticker != nil {
+			c.ticker.Stop()
+		}
+		c.ticker = time.NewTicker(v.RefreshInterVal())
+		go func() {
+			for {
+				select {
+				case _, ok := <-c.ticker.C:
+					if !ok {
+						slog.Info("timer exit ....")
+						return
+					}
+					c.refresh()
+				}
+			}
+		}()
+	} else {
+		if c.ticker != nil {
+			c.ticker.Stop()
+		}
+	}
+}
+
+func (c *Chapter) refresh() {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	if c.curChapter == nil {
+		return
+	}
+	c.ChapterContent.Canvas3d().Reset()
+	c.ParamsContent.RemoveAll()
+	c.curChapter.InitChapterContent(c.ChapterContent)
+	c.curChapter.InitParamsContent(c.ParamsContent)
+	c.ChapterContent.Refresh()
+	c.ParamsContent.Refresh()
+
 }
 
 func (c *Chapter) ChangeChapter(uid string) {
@@ -27,15 +77,9 @@ func (c *Chapter) ChangeChapter(uid string) {
 			c.Chapters[uid] = v
 		}
 	}
-	if v != nil {
-		c.ChapterContent.Reset()
-		c.ParamsContent.RemoveAll()
-		v.InitChapterContent(c.ChapterContent)
-		v.InitParamsContent(c.ParamsContent)
-		c.ChapterContent.Refresh()
-		c.ParamsContent.Refresh()
-	}
-
+	c.curChapter = v
+	c.refresh()
+	c.TimerRefresh()
 }
 
 func NewChapter(w fyne.Window, winSize fyne.Size) *Chapter {
@@ -85,4 +129,6 @@ var chapterCns = map[string]func() base_ui.IChapter{
 	desc.ChapterHelloTriangleSub2: _1hello_triangle.NewTriangleIndex,
 	desc.ChapterHelloTriangleSub3: _1hello_triangle.NewHelloCoordinates,
 	desc.ChapterLighting1:         _2lighting.NewLighting,
+	desc.ChapterLighting2:         _2lighting.NewLight1,
+	desc.ChapterLighting3:         _2lighting.NewLight2,
 }

@@ -4,6 +4,7 @@ import (
 	"github.com/gorustyt/fyne/v2"
 	"github.com/gorustyt/fyne/v2/app"
 	"github.com/gorustyt/fyne/v2/container"
+	"github.com/gorustyt/fyne/v2/theme"
 	"github.com/gorustyt/learn-opengl-go/chapter"
 	"github.com/gorustyt/learn-opengl-go/ui"
 )
@@ -13,6 +14,7 @@ func main() {
 	a := app.NewWithID("learn-go-opengl")
 	w := a.NewWindow("learn go opengl")
 	chap := chapter.NewChapter(w, size)
+	a.Settings().SetTheme(theme.DarkTheme())
 	content := container.NewStack()
 	setView := func(uid string) {
 		chap.ChangeChapter(uid)
@@ -26,4 +28,5 @@ func main() {
 	w.SetContent(split1)
 	w.Resize(size)
 	w.ShowAndRun()
+
 }

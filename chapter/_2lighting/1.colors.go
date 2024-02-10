@@ -25,7 +25,7 @@ out vec4 FragColor;
 
 void main()
 {
-    FragColor = vec4(0,0.5,0,1.0); // set all 4 vector values to 1.0
+    FragColor = vec4(1.0,1.0,1.0,1.0); // set all 4 vector values to 1.0
 }`
 	color_vs = `#version 330 core
 layout (location = 0) in vec3 position;
@@ -94,7 +94,6 @@ void main()
 )
 
 type Lighting struct {
-	light      *canvas3d.Light
 	lightCoord *canvas3d.Coordinate
 	lightVert  *canvas3d.VertexFloat32Array
 
@@ -103,16 +102,15 @@ type Lighting struct {
 }
 
 func (l *Lighting) InitChapterContent(c *base_ui.ChapterContent) {
-	c.Painter(0).SetShaderConfig(lightCube_vs, lightCube_fs)
-	l.lightCoord.UpdateFrameSize(c.WinSize)
-	c.Painter(0).AppendObj(l.lightCoord)
-	c.Painter(0).AppendObj(l.lightVert)
+	c.Canvas3d().SetShaderConfig(0, lightCube_vs, lightCube_fs)
+	c.Canvas3d().AppendObj(0, l.lightCoord)
+	c.Canvas3d().AppendObj(0, l.lightVert)
 
-	c.Painter(1).SetShaderConfig(color_vs, color_fs)
-	c.Painter(1).AppendObj(l.cubeVert)
-	c.Painter(1).AppendObj(l.cubeCoord)
-	l.cubeCoord.Scale(0.5, 0.5, 0.5)
-	c.Painter(1).AppendRenderFunc(func(ctx context.Painter) {
+	c.Canvas3d().SetShaderConfig(1, color_vs, color_fs)
+	c.Canvas3d().AppendObj(1, l.cubeVert)
+	c.Canvas3d().AppendObj(1, l.cubeCoord)
+
+	c.Canvas3d().AppendRenderFunc(1, func(ctx context.Painter) {
 		ctx.UniformVec3("lightColor", mgl32.Vec3{1, 1, 1})
 		ctx.UniformVec3("objectColor", mgl32.Vec3{1.0, 0.5, 0.31})
 	})
@@ -124,14 +122,13 @@ func (l *Lighting) InitParamsContent(c *base_ui.ParamsContent) {
 
 func NewLighting() base_ui.IChapter {
 	l := &Lighting{
-		light:      canvas3d.NewLight(),
 		lightCoord: canvas3d.NewCoordinate(),
 		lightVert:  canvas3d.NewVertexFloat32Array(),
 		cubeCoord:  canvas3d.NewCoordinate(),
 		cubeVert:   canvas3d.NewVertexFloat32Array()}
-	l.light.Position = mgl32.Vec3{1.2, 1, 2.0}
 	l.cubeVert.Arr = vert
 	l.cubeVert.PositionSize = []int{3, 0}
+	l.cubeCoord.Scale(0.5, 0.5, 0.5)
 
 	l.lightVert.Arr = vert
 	l.lightVert.PositionSize = []int{3, 0}
