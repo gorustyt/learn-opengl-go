@@ -3,7 +3,7 @@ package base_ui
 import (
 	"github.com/gorustyt/fyne/v2"
 	"github.com/gorustyt/fyne/v2/canvas"
-	"github.com/gorustyt/fyne/v2/canvas/canvas3d"
+	"github.com/gorustyt/fyne/v2/canvas3d/canvas3d"
 	"github.com/gorustyt/fyne/v2/widget"
 )
 
