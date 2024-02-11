@@ -18,6 +18,7 @@ type Chapter struct {
 	ChapterContent *base_ui.ChapterContent
 	Chapters       map[string]base_ui.IChapter
 	ticker         *time.Ticker
+	exit           chan struct{}
 	curChapter     base_ui.IChapter
 
 	lock sync.Mutex
@@ -27,27 +28,24 @@ func (c *Chapter) TimerRefresh() {
 	if c.curChapter == nil {
 		return
 	}
+	if c.ticker != nil {
+		c.ticker.Stop()
+		c.exit <- struct{}{}
+		c.ticker = nil
+	}
 	if v, ok := c.curChapter.(base_ui.IChapterRefresh); ok {
-		if c.ticker != nil {
-			c.ticker.Stop()
-		}
 		c.ticker = time.NewTicker(v.RefreshInterVal())
 		go func() {
 			for {
 				select {
-				case _, ok := <-c.ticker.C:
-					if !ok {
-						slog.Info("timer exit ....")
-						return
-					}
+				case <-c.ticker.C:
 					c.refresh()
+				case <-c.exit:
+					slog.Info("timer exit ....")
+					return
 				}
 			}
 		}()
-	} else {
-		if c.ticker != nil {
-			c.ticker.Stop()
-		}
 	}
 }
 
@@ -88,6 +86,7 @@ func NewChapter(w fyne.Window, winSize fyne.Size) *Chapter {
 		Chapters:       map[string]base_ui.IChapter{},
 		ParamsContent:  base_ui.NewParamsContent(),
 		ChapterContent: base_ui.NewChapterContent(),
+		exit:           make(chan struct{}, 1),
 	}
 	c.ChapterContent.WinSize = winSize
 	c.RegisterKeyEvent()
