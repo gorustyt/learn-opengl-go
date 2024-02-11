@@ -90,6 +90,7 @@ func NewChapter(w fyne.Window, winSize fyne.Size) *Chapter {
 	}
 	c.ChapterContent.WinSize = winSize
 	c.RegisterKeyEvent()
+	base_ui.InitChapterRefresh(c.refresh)
 	return c
 }
 
@@ -131,4 +132,7 @@ var chapterCns = map[string]func() base_ui.IChapter{
 	desc.ChapterLighting2:         _2lighting.NewLight1,
 	desc.ChapterLighting3:         _2lighting.NewLight2,
 	desc.ChapterLighting7:         _2lighting.NewMaterial,
+	desc.ChapterLighting9:         _2lighting.NewMaterial1,
+	desc.ChapterLighting15:        _2lighting.NewLightSpot,
+	desc.ChapterLighting16:        _2lighting.NewLightSpotSoft,
 }

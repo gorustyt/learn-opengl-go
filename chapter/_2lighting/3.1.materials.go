@@ -3,6 +3,7 @@ package _2lighting
 import (
 	"github.com/go-gl/mathgl/mgl32"
 	"github.com/gorustyt/fyne/v2/canvas3d"
+	"github.com/gorustyt/fyne/v2/canvas3d/canvas3d_render"
 	"github.com/gorustyt/fyne/v2/canvas3d/context"
 	"github.com/gorustyt/learn-opengl-go/ui/base_ui"
 	"math"
@@ -77,9 +78,8 @@ void main()
 
 type Material struct {
 	*Lighting
-	l         *canvas3d.Light
-	m         *canvas3d.Material
-	startTime time.Time
+	l *canvas3d.Light
+	m *canvas3d.Material
 }
 
 func (l *Material) InitChapterContent(c *base_ui.ChapterContent) {
@@ -92,12 +92,9 @@ func (l *Material) InitChapterContent(c *base_ui.ChapterContent) {
 	c.Canvas3d().AppendObj(1, l.cubeCoord)
 	// change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
 
-	now := time.Now()
-	delta := float64(now.Sub(l.startTime).Milliseconds())
-	l.startTime = now
-	x := float32(math.Sin(delta * 2.0))
-	y := float32(math.Sin(delta * 0.7))
-	z := float32(math.Sin(delta * 1.3))
+	x := float32(math.Sin(canvas3d_render.GetGlfwTime() * 2.0))
+	y := float32(math.Sin(canvas3d_render.GetGlfwTime() * 0.7))
+	z := float32(math.Sin(canvas3d_render.GetGlfwTime() * 1.3))
 	lightColor := mgl32.Vec3{x, y, z}
 	diffuseColor := lightColor.Mul(0.5)   // decrease the influence
 	ambientColor := diffuseColor.Mul(0.2) // low influence
@@ -128,7 +125,7 @@ func NewMaterial() base_ui.IChapter {
 	l1.lightVert.Arr = vert
 	l1.lightVert.PositionSize = []int{3, 0}
 
-	l := &Material{Lighting: l1, startTime: time.Now(), l: canvas3d.NewLight(), m: canvas3d.NewMaterial()}
+	l := &Material{Lighting: l1, l: canvas3d.NewLight(), m: canvas3d.NewMaterial()}
 	l.cubeVert.Arr = vert1
 	l.cubeVert.NormalSize = []int{3, 3}
 	l.cubeCoord.Rotate(45, mgl32.Vec3{1.0, 0.3, 0.5}.Normalize())

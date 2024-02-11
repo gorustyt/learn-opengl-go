@@ -2,18 +2,18 @@ package base_ui
 
 import (
 	"github.com/gorustyt/fyne/v2"
-	"github.com/gorustyt/fyne/v2/canvas3d/canvas3d"
+	"github.com/gorustyt/fyne/v2/canvas3d/canvas3d_render"
 	"github.com/gorustyt/fyne/v2/widget"
 )
 
 type ChapterContent struct {
-	c canvas3d.ICanvas3d
+	c canvas3d_render.ICanvas3d
 	widget.BaseWidget
 	*KeyHandel
 	WinSize fyne.Size
 }
 
-func (c *ChapterContent) Canvas3d() canvas3d.ICanvas3d {
+func (c *ChapterContent) Canvas3d() canvas3d_render.ICanvas3d {
 	return c.c
 }
 
@@ -30,7 +30,7 @@ func (c *ChapterContent) Refresh() {
 }
 
 func NewChapterContent() *ChapterContent {
-	c := &ChapterContent{KeyHandel: NewKeyHandel(), c: canvas3d.NewCanvas3d(2)}
+	c := &ChapterContent{KeyHandel: NewKeyHandel(), c: canvas3d_render.NewCanvas3d(2)}
 	c.ExtendBaseWidget(c)
 	return c
 }

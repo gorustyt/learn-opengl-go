@@ -3,6 +3,7 @@ package _2lighting
 import (
 	"github.com/go-gl/mathgl/mgl32"
 	"github.com/gorustyt/fyne/v2/canvas3d"
+	"github.com/gorustyt/fyne/v2/canvas3d/canvas3d_render"
 	"github.com/gorustyt/fyne/v2/canvas3d/context"
 	"github.com/gorustyt/learn-opengl-go/ui/base_ui"
 	"math"
@@ -108,7 +109,6 @@ void main()
 
 type Light2 struct {
 	*Lighting
-	startTime time.Time
 }
 
 func (l *Light2) InitChapterContent(c *base_ui.ChapterContent) {
@@ -120,12 +120,8 @@ func (l *Light2) InitChapterContent(c *base_ui.ChapterContent) {
 	c.Canvas3d().AppendObj(1, l.cubeVert)
 	c.Canvas3d().AppendObj(1, l.cubeCoord)
 	// change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
-
-	now := time.Now()
-	delta := float64(now.Sub(l.startTime).Milliseconds())
-	x := lightPos[0] + float32(math.Sin(delta)/2.0)
-	y := lightPos[1] + float32(math.Sin(delta/2.0))
-	l.startTime = now
+	x := lightPos[0] + float32(math.Sin(canvas3d_render.GetGlfwTime())/2.0)
+	y := lightPos[1] + float32(math.Sin(canvas3d_render.GetGlfwTime()/2.0))
 	newLightPos := mgl32.Vec3{x, y, lightPos[2]}
 	l.lightCoord.TranslateVec3(newLightPos)
 	c.Canvas3d().AppendRenderFunc(1, func(painter context.Painter) {
@@ -154,7 +150,7 @@ func NewLight2() base_ui.IChapter {
 	l1.lightVert.Arr = vert
 	l1.lightVert.PositionSize = []int{3, 0}
 
-	l := &Light2{Lighting: l1, startTime: time.Now()}
+	l := &Light2{Lighting: l1}
 	l.cubeVert.Arr = vert1
 	l.cubeVert.NormalSize = []int{3, 3}
 	l.cubeCoord.Rotate(45, mgl32.Vec3{1.0, 0.3, 0.5}.Normalize())

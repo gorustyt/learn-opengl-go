@@ -5,6 +5,18 @@ import (
 	"time"
 )
 
+var (
+	chapterRefresh = func() {}
+)
+
+func InitChapterRefresh(fn func()) {
+	chapterRefresh = fn
+}
+
+func ChapterRefresh() {
+	chapterRefresh()
+}
+
 type IChapter interface {
 	InitChapterContent(c *ChapterContent)
 	InitParamsContent(c *ParamsContent)
